@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GuardianSeps: Empowering Early Sepsis Detection</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Custom styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin-bottom: 70px; /* Adjusted to accommodate the footer */
+      position: relative; /* Added for positioning */
+    }
+
+    header {
+      background-color: #004080;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      margin-top: 30px;
+    }
+
+    h2 {
+      color: #004080;
+    }
+
+    .image-gallery img {
+      max-width: 200px;
+      margin: 10px auto; /* Center align the images */
+      display: block; /* Ensures each image is displayed on its own line */
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 64, 128, 0.3);
+    }
+
+    .box {
+      padding: 20px;
+      margin-bottom: 30px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 64, 128, 0.3);
+      transition: transform 0.5s ease;
+    }
+
+    .box:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 0; /* Reduced padding */
+      background-color: #004080;
+      color: #fff;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1;
+    }
+
+    footer p {
+      margin: 0;
+      padding: 5px 20px; /* Reduced padding */
+      font-size: 12px; /* Smaller font size */
+    }
+
+    /* Popup styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .popup-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 class="display-4">GuardianSeps: Empowering Early Sepsis Detection</h1>
+  </header>
+
+  <section id="get-started" class="container text-center">
+    <button id="openFormBtn" class="btn btn-primary btn-lg">Get Started</button>
+  </section>
+
+  <div class="container">
+    <section id="description">
+      <div class="box">
+        <h2>Description of Sepsis</h2>
+        <p>Sepsis is a serious condition resulting from the presence of harmful microorganisms in the blood or tissues. It triggers a chain reaction throughout the body, leading to inflammation, organ dysfunction, and potentially death if left untreated. Common symptoms include fever, rapid heart rate, difficulty breathing, and altered mental status.</p>
+      </div>
+    </section>
+
+    <section id="photos">
+      <div class="box">
+        <h2>Photos of Sepsis</h2>
+        <div class="image-gallery">
+          <img src="{{ url_for('static', filename='Image-of-sepsis-1.jpg') }}" alt="Sepsis Image 1">
+          <img src="{{ url_for('static', filename='Image-of-sepsis-2.jpg') }}" alt="Sepsis Image 2">
+          <img src="{{ url_for('static', filename='Image-of-sepsis-3.jpg') }}" alt="Sepsis Image 3">
+      </div>
+      </div>
+    </section>
+
+    <section id="precautions">
+      <div class="box">
+        <h2>Safety Precautions</h2>
+        <ul>
+          <li>Practice good hygiene, including regular handwashing.</li>
+          <li>Seek prompt medical attention for any signs of infection.</li>
+          <li>Complete prescribed antibiotic treatments as directed by healthcare providers.</li>
+          <li>Stay up-to-date with vaccinations to prevent certain infections.</li>
+          <li>Follow safe food handling practices to reduce the risk of foodborne illnesses.</li>
+          <li>Keep wounds clean and covered until they are fully healed.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <!-- Copyright Footer -->
+  <footer>
+    <p><a href="#" id="aboutUsLink">About Us</a> | &copy; 2024 GuardianSeps</p>
+  </footer>
+
+  <!-- About Us Section -->
+  <div id="aboutUsPopup" class="popup">
+    <div class="popup-content">
+      <span class="close-btn">&times;</span>
+      <h2>About Us</h2>
+      <p>GuardianSeps is founded by:</p>
+      <ul>
+        <li>Charan Appala</li>
+        <li>Shreya Balurgi</li>
+        <li>Praveen Royal Balaiahgari</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Get Started Popup Form -->
+  <div class="popup" id="getStartedPopup">
+    <div class="popup-content">
+      <span class="close-btn">&times;</span>
+      <h2 class="mb-4">Get Started</h2>
+      <button id="loginBtn" class="btn btn-primary mr-2" href="/login">Login</button>
+      <button id="signupBtn" class="btn btn-success" href="/signup">Sign Up</button>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and jQuery (Optional) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- JavaScript -->
+<!-- JavaScript -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const openFormBtn = document.getElementById('openFormBtn');
+    const getStartedPopup = document.getElementById('getStartedPopup');
+    const closeBtns = document.querySelectorAll('.close-btn');
+    const aboutUsLink = document.getElementById('aboutUsLink');
+    const aboutUsPopup = document.getElementById('aboutUsPopup');
+
+    openFormBtn.addEventListener('click', function() {
+      getStartedPopup.style.display = 'block';
+    });
+
+    aboutUsLink.addEventListener('click', function() {
+      aboutUsPopup.style.display = 'block';
+    });
+
+    closeBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        getStartedPopup.style.display = 'none';
+        aboutUsPopup.style.display = 'none';
+      });
+    });
+
+    window.addEventListener('click', function(event) {
+      if (event.target === getStartedPopup || event.target === aboutUsPopup) {
+        getStartedPopup.style.display = 'none';
+        aboutUsPopup.style.display = 'none';
+      }
+    });
+
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+
+    loginBtn.addEventListener('click', function() {
+      window.location.href = '/login'; // Corrected URL
+    });
+
+    signupBtn.addEventListener('click', function() {
+      window.location.href = '/signup'; // Corrected URL
+    });
+  });
+</script>
+
+
+</body>
+</html>
